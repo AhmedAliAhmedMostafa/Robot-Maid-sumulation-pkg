@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<robot name="RoboMaid">
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.35 0.35 0.005"/>
+      </geometry>
+	<material name="white"/>
+    </visual>
+  </link>
+  <link name="right_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.035" radius="0.03"/>
+      </geometry>
+      <origin rpy="1.57075 0 0" xyz="0 0 -0.02"/>
+	<material name="black"/>
+    </visual>
+  </link>
+  <joint name="base_to_righ_wheel" type="continuous">
+	<parent link="base_link"/>
+	<child link="right_wheel_link"/>
+        <axis xyz="0 1 0"/>
+	<origin xyz="0 0.135 0"/>
+  </joint>
+  <link name="left_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.035" radius="0.03"/>
+      </geometry>
+      <origin rpy="1.57075 0 0" xyz="0 0 -0.02"/>
+	<material name="black"/>
+    </visual>
+  </link>
+  <joint name="base_to_left_wheel" type="continuous">
+	<parent link="base_link"/>
+	<child link="left_wheel_link"/>
+	<axis xyz="0 1 0"/>
+	<origin xyz="0 -0.135 0"/>
+  </joint>
+  <link name="front_roller">
+    <visual>
+      <geometry>
+        <sphere  radius="0.025"/>
+      </geometry>
+      <origin  xyz="0 0 -0.025"/>
+	<material name="black"/>
+    </visual>
+  </link>
+  <link name="back_roller">
+    <visual>
+      <geometry>
+        <sphere  radius="0.025"/>
+      </geometry>
+      <origin  xyz="0 0 -0.025"/>
+	<material name="black"/>
+    </visual>
+  </link>
+  <joint name="base_to_front_roller" type="fixed">
+	<parent link="base_link"/>
+	<child link="front_roller"/>
+	<origin xyz="-0.14 0 0"/>
+  </joint>
+  <joint name="base_to_back_roller" type="fixed">
+	<parent link="base_link"/>
+	<child link="back_roller"/>
+	<origin xyz="0.14 0 0"/>
+  </joint>
+
+</robot>
