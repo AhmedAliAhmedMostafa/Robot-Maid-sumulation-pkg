@@ -108,36 +108,7 @@
 	<inertia ixx="0.00003" ixy="0.0" ixz="0.0" iyy="0.00003" iyz="0.0" izz="0.00003"/>
      </inertial>
   </link>
-
-
-  <joint name="base_to_right_wheel" type="continuous">
-	<parent link="base_link"/>
-	<child link="right_wheel_link"/>
-        <axis xyz="0 1 0"/>
-	<origin xyz="0 0.135 -0.02"/>
-  </joint>
-
-  <joint name="base_to_left_wheel" type="continuous">
-	<parent link="base_link"/>
-	<child link="left_wheel_link"/>
-	<axis xyz="0 1 0"/>
-	<origin xyz="0 -0.135 -0.02"/>
-  </joint>
-
-
-  <joint name="base_to_front_roller" type="fixed">
-	<parent link="base_link"/>
-	<child link="front_roller"/>
-	<origin xyz="-0.14 0 0"/>
-  </joint>
-
-  <joint name="base_to_back_roller" type="fixed">
-	<parent link="base_link"/>
-	<child link="back_roller"/>
-	<origin xyz="0.14 0 0"/>
-  </joint>
-	<!--lidar-model -->
-  <link
+<link
     name="base_laser">
     <inertial>
       <origin
@@ -217,6 +188,34 @@ filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
       </geometry>
     </collision-->
   </link>
+
+  <joint name="base_to_right_wheel" type="continuous">
+	<parent link="base_link"/>
+	<child link="right_wheel_link"/>
+        <axis xyz="0 1 0"/>
+	<origin xyz="0 0.135 -0.02"/>
+  </joint>
+
+  <joint name="base_to_left_wheel" type="continuous">
+	<parent link="base_link"/>
+	<child link="left_wheel_link"/>
+	<axis xyz="0 1 0"/>
+	<origin xyz="0 -0.135 -0.02"/>
+  </joint>
+
+
+  <joint name="base_to_front_roller" type="fixed">
+	<parent link="base_link"/>
+	<child link="front_roller"/>
+	<origin xyz="-0.14 0 0"/>
+  </joint>
+
+  <joint name="base_to_back_roller" type="fixed">
+	<parent link="base_link"/>
+	<child link="back_roller"/>
+	<origin xyz="0.14 0 0"/>
+  </joint>  
+
   <joint
     name="laser_joint"
     type="fixed">
@@ -230,7 +229,8 @@ filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
     <axis
       xyz="0 0 0" />
   </joint>
-  <joint name="base_to_lidar" type="continuous">
+
+  <joint name="base_to_lidar" type="fixed">
 	<parent link="base_link"/>
 	<child link="base_laser"/>
 	<axis xyz="0 0 1"/>
@@ -279,6 +279,42 @@ filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
  <xacro:wheel-trans wheel_type="right"/>
 <xacro:wheel-speed-read wheel_type="left"/>
 <xacro:wheel-speed-read wheel_type="right"/>
+	<!--Gazebo plugin for lidar -->
+  <gazebo reference="base_laser">
+    <sensor type="gpu_ray" name="ydlidar_X4_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.570796</min_angle>
+            <max_angle>1.570796</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.12</min>
+          <max>10</max>
+          <resolution>0.5</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise parameters based on published spec for Hokuyo laser
+               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+               reading. -->
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_ydlidar_controller" filename="libgazebo_ros_gpu_laser.so">
+        <topicName>/robomaid/laser/scan</topicName>
+        <frameName>base_laser</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
 	<!--making ros interact with gazebo-->
   <gazebo>
        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">

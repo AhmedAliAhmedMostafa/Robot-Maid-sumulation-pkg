@@ -25,6 +25,7 @@
  		<rosparam command="load"
 		    file="$(find RoboMaid_sim)/config/wheel_velocitiy.yaml"
 		    ns="r2d2_diff_drive_controller" />
+
 	  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
 
 	  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
