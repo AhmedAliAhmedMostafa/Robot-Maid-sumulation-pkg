@@ -236,7 +236,7 @@ filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
 	<axis xyz="0 0 1"/>
 	<origin xyz="0 0 0"/>
   </joint>
-
+	<!--making ros interact with gazebo-->
   <gazebo>
        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
           <robotNamespace>/</robotNamespace>

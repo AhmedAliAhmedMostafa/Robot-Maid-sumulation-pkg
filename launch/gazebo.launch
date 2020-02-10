@@ -25,4 +25,14 @@
 	  <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher">
 	    <param name="publish_frequency" type="double" value="30.0" />
 	  </node>
+
+	<!--spwan  joint state publisher-->
+	<rosparam command="load"
+		    file="$(find RoboMaid_sim)/config/joints.yaml"
+		    ns="r2d2_joint_state_controller" />
+
+	
+	<node name="r2d2_controller_spawner" pkg="controller_manager" type="spawner"
+	    args="r2d2_joint_state_controller
+		  --shutdown-timeout 3"/>
 </launch>
