@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="RoboMaid">
+<robot name="RoboMaid" xmlns:xacro="http://ros.org/wiki/xacro">
   <material name="white">
     <color rgba="1 1 1 1"/>
   </material>
@@ -10,7 +10,7 @@
 
 	<!-- Robot-model-->
 
-  <link name="base_link">
+  <link name="base_link" >
     <visual>
       <geometry>
         <box size="0.35 0.35 0.005"/>
@@ -33,14 +33,14 @@
       <geometry>
         <cylinder length="0.035" radius="0.03"/>
       </geometry>
-      <origin rpy="1.57075 0 0" xyz="0 0 -0.02"/>
+      <origin rpy="1.57075 0 0" xyz="0 0 0"/>
 	<material name="black"/>
     </visual>
     <collision>
 	<geometry>
         <cylinder length="0.035" radius="0.03"/>
       </geometry>
-      <origin rpy="1.57075 0 0" xyz="0 0 -0.02"/>
+      <origin rpy="1.57075 0 0" xyz="0 0 0"/>
     </collision>
      <inertial>
 	<mass value="0.2"/>
@@ -53,14 +53,14 @@
       <geometry>
         <cylinder length="0.035" radius="0.03"/>
       </geometry>
-      <origin rpy="1.57075 0 0" xyz="0 0 -0.02"/>
+      <origin rpy="1.57075 0 0" xyz="0 0 0"/>
 	<material name="black"/>
     </visual>
       <collision>
        <geometry>
         <cylinder length="0.035" radius="0.03"/>
       </geometry>
-      <origin rpy="1.57075 0 0" xyz="0 0 -0.02"/>
+      <origin rpy="1.57075 0 0" xyz="0 0 0"/>
     </collision>
      <inertial>
 	<mass value="0.2"/>
@@ -110,18 +110,18 @@
   </link>
 
 
-  <joint name="base_to_righ_wheel" type="continuous">
+  <joint name="base_to_right_wheel" type="continuous">
 	<parent link="base_link"/>
 	<child link="right_wheel_link"/>
         <axis xyz="0 1 0"/>
-	<origin xyz="0 0.135 0"/>
+	<origin xyz="0 0.135 -0.02"/>
   </joint>
 
   <joint name="base_to_left_wheel" type="continuous">
 	<parent link="base_link"/>
 	<child link="left_wheel_link"/>
 	<axis xyz="0 1 0"/>
-	<origin xyz="0 -0.135 0"/>
+	<origin xyz="0 -0.135 -0.02"/>
   </joint>
 
 
@@ -236,6 +236,36 @@ filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
 	<axis xyz="0 0 1"/>
 	<origin xyz="0 0 0"/>
   </joint>
+
+
+
+	<!-- adding transmitions for wheels to control their velocity from gazebo -->
+<xacro:macro name="wheel-trans" params="wheel_type">
+
+    <gazebo reference="${wheel_type}_wheel">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+    <!-- This block connects the wheel joint to an actuator (motor), which informs both
+    simulation and visualization of the robot -->
+    <transmission name="${wheel_type}_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="${wheel_type}_wheel_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="base_to_${wheel_type}_wheel">
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
+      </joint>
+    </transmission>
+
+ </xacro:macro>
+
+ <xacro:wheel-trans wheel_type="left"/>
+ <xacro:wheel-trans wheel_type="right"/>
 	<!--making ros interact with gazebo-->
   <gazebo>
        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
