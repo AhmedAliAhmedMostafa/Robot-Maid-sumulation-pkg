@@ -258,14 +258,27 @@ filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
       <joint name="base_to_${wheel_type}_wheel">
-        <hardwareInterface>VelocityJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       </joint>
     </transmission>
 
  </xacro:macro>
 
+<xacro:macro name="wheel-speed-read" params="wheel_type">
+
+    <transmission name="${wheel_type}_wheel_reading">
+      <type>transmission_interface/SimpleTransmission</type>
+
+    <joint name="base_to_${wheel_type}_wheel">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    </transmission>
+
+ </xacro:macro>
  <xacro:wheel-trans wheel_type="left"/>
  <xacro:wheel-trans wheel_type="right"/>
+<xacro:wheel-speed-read wheel_type="left"/>
+<xacro:wheel-speed-read wheel_type="right"/>
 	<!--making ros interact with gazebo-->
   <gazebo>
        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
