@@ -164,7 +164,7 @@ filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
         iyz="2.423E-07"
         izz="0.00011103" />
     </inertial>
-    <!--visual>
+    <visual>
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
@@ -177,8 +177,8 @@ filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
         <color
           rgba="0.64706 0.61961 0.58824 1" />
       </material>
-    </visual-->
-    <!--collision>
+    </visual>
+    <collision>
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
@@ -186,7 +186,7 @@ filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
         <mesh
           filename="package://ydlidar_ros/meshes/ydlidar.dae" />
       </geometry>
-    </collision-->
+    </collision>
   </link>
 
   <joint name="base_to_right_wheel" type="continuous">
@@ -280,18 +280,18 @@ filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
 <xacro:wheel-speed-read wheel_type="left"/>
 <xacro:wheel-speed-read wheel_type="right"/>
 	<!--Gazebo plugin for lidar -->
-  <gazebo reference="base_laser">
-    <sensor type="gpu_ray" name="ydlidar_X4_sensor">
-      <pose>0 0 0 0 0 0</pose>
-      <visualize>false</visualize>
+  <gazebo reference="laser_frame">
+    <sensor type="ray" name="ydlidar_X4_sensor">
+      <pose>0 0 0.0 0 0 0</pose>
+      <visualize>true</visualize>
       <update_rate>40</update_rate>
       <ray>
         <scan>
           <horizontal>
-            <samples>720</samples>
+            <samples>5000</samples>
             <resolution>1</resolution>
-            <min_angle>-1.570796</min_angle>
-            <max_angle>1.570796</max_angle>
+            <min_angle>-3.14159265359</min_angle>
+            <max_angle>3.14159265359</max_angle>
           </horizontal>
         </scan>
         <range>
@@ -301,19 +301,16 @@ filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
         </range>
         <noise>
           <type>gaussian</type>
-          <!-- Noise parameters based on published spec for Hokuyo laser
-               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
-               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
-               reading. -->
+
           <mean>0.0</mean>
           <stddev>0.01</stddev>
         </noise>
       </ray>
-      <plugin name="gazebo_ros_ydlidar_controller" filename="libgazebo_ros_gpu_laser.so">
+      <plugin name="gazebo_ros_ydlidarx4_controller" filename="libgazebo_ros_laser.so">
         <topicName>/robomaid/laser/scan</topicName>
-        <frameName>base_laser</frameName>
+        <frameName>laser_frame</frameName>
       </plugin>
-    </sensor>
+    </sensor >
   </gazebo>
 	<!--making ros interact with gazebo-->
   <gazebo>

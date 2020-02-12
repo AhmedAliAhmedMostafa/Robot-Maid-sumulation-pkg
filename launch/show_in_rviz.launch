@@ -1,8 +1,8 @@
 <launch>
 
-<arg name="model" default="$(find RoboMaid_sim)/urdf/RoboMaid.urdf"/>
+<arg name="model" default="$(find RoboMaid_sim)/urdf/RoboMaid.urdf.xacro"/>
 <arg name="gui" default="true" />
-<arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
+<arg name="rvizconfig" default="$(find RoboMaid_sim)/rviz/urdf.rviz" />
 
 <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
 <param name="use_gui" value="$(arg gui)"/>
