@@ -197,7 +197,7 @@
 	<!-- adding transmitions for wheels to control their velocity from gazebo -->
 <xacro:macro name="wheel-trans" params="wheel_type">
 
-    <gazebo reference="${wheel_type}_wheel">
+    <gazebo reference="${wheel_type}_wheel_link">
       <mu1 value="200.0"/>
       <mu2 value="100.0"/>
       <kp value="10000000.0" />
@@ -218,10 +218,11 @@
     </transmission>
 
  </xacro:macro>
+ <xacro:wheel-trans wheel_type="left"/>
+ <xacro:wheel-trans wheel_type="right"/>
+<!--<xacro:macro name="wheel_position_state" params="wheel_type">
 
-<xacro:macro name="wheel-speed-read" params="wheel_type">
-
-    <transmission name="${wheel_type}_wheel_reading">
+    <transmission name="${wheel_type}_wheel_state">
       <type>transmission_interface/SimpleTransmission</type>
 
     <joint name="base_to_${wheel_type}_wheel">
@@ -229,11 +230,10 @@
     </joint>
     </transmission>
 
- </xacro:macro>
- <xacro:wheel-trans wheel_type="left"/>
- <xacro:wheel-trans wheel_type="right"/>
-<xacro:wheel-speed-read wheel_type="left"/>
-<xacro:wheel-speed-read wheel_type="right"/>
+ </xacro:macro>-->
+
+<!--<xacro:wheel_position_state wheel_type="left"/>-->
+<!--<xacro:wheel_position_state wheel_type="right"/>-->
 	<!--Gazebo plugin for lidar -->
   <gazebo reference="laser_frame">
     <sensor type="ray" name="ydlidar_X4_sensor">

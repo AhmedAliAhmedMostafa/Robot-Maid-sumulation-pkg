@@ -66,11 +66,6 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_laser:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         base_link:
           Alpha: 1
           Show Axes: false
@@ -107,17 +102,17 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base_laser:
-          Value: true
         base_link:
           Value: true
         front_roller:
           Value: true
         laser_frame:
           Value: true
-        map:
+        left_wheel_link:
           Value: true
         odom:
+          Value: true
+        right_wheel_link:
           Value: true
       Marker Scale: 0.5
       Name: TF
@@ -126,11 +121,16 @@ Visualization Manager:
       Show Names: true
       Tree:
         base_link:
-          base_laser:
-            laser_frame:
-              {}
           front_roller:
             {}
+          laser_frame:
+            {}
+          left_wheel_link:
+            {}
+          right_wheel_link:
+            {}
+        odom:
+          {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -177,7 +177,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: base_link
+    Fixed Frame: odom
     Frame Rate: 30
   Name: root
   Tools:
