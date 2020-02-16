@@ -108,7 +108,46 @@
 	<inertia ixx="0.00003" ixy="0.0" ixz="0.0" iyy="0.00003" iyz="0.0" izz="0.00003"/>
      </inertial>
   </link> -->
-
+<link
+    name="base_laser">
+    <inertial>
+      <origin
+        xyz="-0.00029774 0.0066667 0.00513047"
+        rpy="0 0 0" />
+      <mass
+        value="0.15717" />
+      <inertia
+        ixx="6.7885E-05"
+        ixy="-1.3987E-07"
+        ixz="-8.1554E-07"
+        iyy="0.00013173"
+        iyz="-9.0932E-08"
+        izz="7.1972E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0.005"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 1 0.5" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+filename="package://RoboMaid_sim/meshes/ydlidar.dae" />
+      </geometry>
+    </collision>
+  </link>
 <link
     name="laser_frame">
     <inertial>
@@ -184,14 +223,20 @@
       xyz="0 0 0.03172"
       rpy="0 0 0" />
     <parent
-      link="base_link" />
+      link="base_laser" />
     <child
       link="laser_frame" />
     <axis
       xyz="0 0 0" />
   </joint>
 
-  
+  <joint name="base_to_lidar" type="fixed">
+	<parent link="base_link"/>
+	<child link="base_laser"/>
+	<axis xyz="0 0 1"/>
+	<origin xyz="0 0 0"/>
+  </joint>
+
 
 
 	<!-- adding transmitions for wheels to control their velocity from gazebo -->
