@@ -150,16 +150,16 @@
     </collision>
   </link>
 
-  <joint name="base_to_right_wheel" type="continuous">
+  <joint name="base_to_left_wheel" type="continuous">
 	<parent link="base_link"/>
-	<child link="right_wheel_link"/>
+	<child link="left_wheel_link"/>
         <axis xyz="0 1 0"/>
 	<origin xyz="0 0.135 -0.02"/>
   </joint>
 
-  <joint name="base_to_left_wheel" type="continuous">
+  <joint name="base_to_right_wheel" type="continuous">
 	<parent link="base_link"/>
-	<child link="left_wheel_link"/>
+	<child link="right_wheel_link"/>
 	<axis xyz="0 1 0"/>
 	<origin xyz="0 -0.135 -0.02"/>
   </joint>
@@ -188,7 +188,7 @@
     <child
       link="laser_frame" />
     <axis
-      xyz="0 0 0" />
+      xyz="0  0 1" />
   </joint>
 
   
