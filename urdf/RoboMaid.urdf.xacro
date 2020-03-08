@@ -23,7 +23,7 @@
       </geometry>
     </collision>
      <inertial>
-	<mass value="2"/>
+	<mass value="2.4"/>
 	<inertia ixx="0.0204" ixy="0.0" ixz="0.0" iyy="0.0408" iyz="0.0" izz="0.0204"/>
      </inertial>
   </link>
@@ -71,19 +71,20 @@
   <link name="front_roller">
     <visual>
       <geometry>
-        <sphere  radius="0.025"/>
+        <sphere  radius="0.015"/>
       </geometry>
-      <origin  xyz="0 0 -0.025"/>
+      <origin  xyz="0 0 -0.015"/>
 	<material name="black"/>
     </visual>
      <collision>
 	<geometry>
-        <sphere  radius="0.025"/>
+        <sphere  radius="0.015"/>
       </geometry>
-      <origin  xyz="0 0 -0.025"/>
+      <origin  xyz="0 0 -0.015"/>
+      <mu  value="10"/>
      </collision>
      <inertial>
-	<mass value="0.6"/>
+	<mass value="0.12"/>
 	<inertia ixx="0.00003" ixy="0.0" ixz="0.0" iyy="0.00003" iyz="0.0" izz="0.00003"/>
      </inertial>
      
@@ -154,21 +155,21 @@
 	<parent link="base_link"/>
 	<child link="left_wheel_link"/>
         <axis xyz="0 1 0"/>
-	<origin xyz="0 0.135 -0.02"/>
+	<origin xyz="0 0.135 -0.0025"/>
   </joint>
 
   <joint name="base_to_right_wheel" type="continuous">
 	<parent link="base_link"/>
 	<child link="right_wheel_link"/>
 	<axis xyz="0 1 0"/>
-	<origin xyz="0 -0.135 -0.02"/>
+	<origin xyz="0 -0.135 -0.0025"/>
   </joint>
 
 
   <joint name="base_to_front_roller" type="fixed">
 	<parent link="base_link"/>
 	<child link="front_roller"/>
-	<origin xyz="-0.14 0 0"/>
+	<origin xyz="0.14 0 -0.0025"/>
   </joint>
 
   <!--<joint name="base_to_back_roller" type="fixed">
@@ -239,7 +240,7 @@
     <sensor type="ray" name="ydlidar_X4_sensor">
       <pose>0 0 0.0 0 0 0</pose>
       <visualize>false</visualize>
-      <update_rate>40</update_rate>
+      <update_rate>50</update_rate>
       <ray>
         <scan>
           <horizontal>
