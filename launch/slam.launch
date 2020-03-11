@@ -1,4 +1,6 @@
 <launch>
+
 <include file="$(find RoboMaid_sim)/launch/gazebo.launch"/>
-<include file="$(find slam_karto)/launch/karto_slam.launch" />
+<include file="$(find hector_mapping)/launch/mapping_default.launch" />
+<!--<include file="$(find slam_karto)/launch/karto_slam.launch" />-->
 </launch>
