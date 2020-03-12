@@ -1,6 +1,13 @@
 <launch>
+<arg name="use_hector" default="true"/>
 
 <include file="$(find RoboMaid_sim)/launch/gazebo.launch"/>
-<include file="$(find hector_mapping)/launch/mapping_default.launch" />
-<!--<include file="$(find slam_karto)/launch/karto_slam.launch" />-->
+
+<group if="$(arg use_hector)">
+ 	<include file="$(find hector_mapping)/launch/mapping_default.launch" />
+</group>
+
+<group unless="$(arg use_hector)">
+	<include file="$(find slam_karto)/launch/karto_slam.launch" />
+</group>
 </launch>
