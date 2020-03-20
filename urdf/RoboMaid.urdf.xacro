@@ -240,11 +240,11 @@
     <sensor type="ray" name="ydlidar_X4_sensor">
       <pose>0 0 0.0 0 0 0</pose>
       <visualize>false</visualize>
-      <update_rate>50</update_rate>
+      <update_rate>5000</update_rate>
       <ray>
         <scan>
           <horizontal>
-            <samples>720</samples>
+            <samples>833/</samples>
             <resolution>1</resolution>
             <min_angle>-3.14159265359</min_angle>
             <max_angle>3.14159265359</max_angle>

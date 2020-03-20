@@ -1,13 +1,25 @@
+<?xml version="1.0"?>
 <launch>
 <arg name="use_hector" default="true"/>
 
-<include file="$(find RoboMaid_sim)/launch/gazebo.launch"/>
+<include file="$(find RoboMaid_sim)/launch/gazebo.launch">
+	<arg name="world"    default="willowgarage.world"/>
+	<arg name="gazebo_gui" default="true"/>
+</include>
 
 <group if="$(arg use_hector)">
- 	<include file="$(find hector_mapping)/launch/mapping_default.launch" />
+ 	<include file="$(find hector_mapping)/launch/mapping_default.launch" >
+		  <arg name="base_frame" value="base_link"/>
+ 		  <arg name="odom_frame" value="base_link"/>
+                  <arg name="pub_map_odom_transform" value="true"/>
+		  <arg name="scan_subscriber_queue_size" value="5"/>
+		  <arg name="scan_topic" value="/robomaid/laser/scan"/>
+		  <arg name="map_size" value="2048"/>
+	</include>
 </group>
 
 <group unless="$(arg use_hector)">
 	<include file="$(find slam_karto)/launch/karto_slam.launch" />
 </group>
+  <!--<node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0.03172 0 0 0 base_link laser_frame 100"/>-->
 </launch>
