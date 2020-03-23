@@ -4,7 +4,7 @@
 
 <include file="$(find RoboMaid_sim)/launch/gazebo.launch">
 	<arg name="world"    default="willowgarage.world"/>
-	<arg name="gazebo_gui" default="true"/>
+	<arg name="gazebo_gui" default="false"/>
 </include>
 
 <group if="$(arg use_hector)">
